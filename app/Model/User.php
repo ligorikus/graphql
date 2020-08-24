@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'surname', 'email', 'password',
     ];
 
     /**
@@ -40,6 +41,14 @@ class User extends Authenticatable
 
     public function findForPassport($username)
     {
-        return $this->where('name', $username)->orWhere('email', $username)->first();
+        return $this->where('email', $username)->first();
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function role() : BelongsTo
+    {
+        return $this->belongsTo(Role::class);
     }
 }
