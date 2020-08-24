@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('user', function () {
+    \App\Model\User::create([
+        'name' => 'Alexey Semenov',
+        'email' => 'semal551@gmail.com',
+        'password' => \Illuminate\Support\Facades\Hash::make('semal1998')
+    ]);
+})->describe('Create sample user');
